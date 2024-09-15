@@ -1,46 +1,10 @@
-import NextAuth, { NextAuthConfig } from "next-auth";
-import credentials from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs";
+import { NextAuthConfig } from "next-auth";
 import { getUserByEmail } from "./server-utils";
-import { authSchema, TAuthSchema } from "./validations";
-import { sleep } from "./utils";
 
-const config = {
+export const nextAuthEdgeConfig = {
   pages: {
     signIn: "/login",
   },
-  providers: [
-    credentials({
-      async authorize(credentials) {
-        // runs on login
-        // validation
-        const validatedAuthData = authSchema.safeParse(credentials);
-        if (!validatedAuthData.success) {
-          return null;
-        }
-        // runs on login
-        const { email, password } = validatedAuthData.data;
-
-        const user = await getUserByEmail(email);
-        if (!user) {
-          console.log("User not found");
-          return null;
-        }
-
-        const passwordMatch = await bcrypt.compare(
-          password,
-          user.hashedPassword
-        );
-
-        if (!passwordMatch) {
-          console.log("Invalid credentials");
-          return null;
-        }
-
-        return user;
-      },
-    }),
-  ],
   callbacks: {
     authorized: ({ auth, request }) => {
       // runs on every request with middleware
@@ -110,11 +74,5 @@ const config = {
       return session;
     },
   },
+  providers: [],
 } satisfies NextAuthConfig;
-
-export const {
-  auth,
-  signIn,
-  signOut,
-  handlers: { GET, POST },
-} = NextAuth(config);

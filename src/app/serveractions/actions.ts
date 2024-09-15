@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { sleep } from "@/lib/utils";
 import { authSchema, petFormSchema, petIdSchema } from "@/lib/validations";
 import bcrypt from "bcryptjs";
-import { signIn, signOut } from "@/lib/auth";
+import { signIn, signOut } from "@/lib/auth-no-edge";
 import { redirect } from "next/navigation";
 import { checkAuth, getPetByPetId } from "@/lib/server-utils";
 import { Prisma } from "@prisma/client";
@@ -14,7 +14,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 // ---User actions---
 export async function logIn(prevState: unknown, formData: unknown) {
-  await sleep(1000);
+  // await sleep(1000);
   if (!(formData instanceof FormData)) {
     return { message: "Invalid form data." };
   }
@@ -37,12 +37,12 @@ export async function logIn(prevState: unknown, formData: unknown) {
 }
 
 export async function logOut() {
-  await sleep(1000);
+  // await sleep(1000);
   await signOut({ redirectTo: "/" });
 }
 
 export async function signUp(prevState: unknown, formData: unknown) {
-  await sleep(1000);
+  // await sleep(1000);
   // check if formData is a FormData type
   if (!(formData instanceof FormData)) {
     return { message: "Invalid form data." };
@@ -97,7 +97,7 @@ export async function serverCreateCheckoutSession() {
 // ---Pet actions---
 export async function serverAddPet(pet: unknown) {
   // console.log("serverAddPet", pet);
-  await sleep(1000);
+  // await sleep(1000);
   const session = await checkAuth();
 
   const validatedPet = petFormSchema.safeParse(pet);
@@ -124,7 +124,7 @@ export async function serverAddPet(pet: unknown) {
 }
 
 export async function serverEditPet(petId: unknown, newPet: unknown) {
-  await sleep(1000);
+  // await sleep(1000);
   // auth check
   const session = await checkAuth();
   // validation check
@@ -160,7 +160,7 @@ export async function serverEditPet(petId: unknown, newPet: unknown) {
 }
 
 export async function serverDeletePet(petId: unknown) {
-  await sleep(1000);
+  // await sleep(1000);
 
   // auth check
   const session = await checkAuth();
