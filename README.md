@@ -5,7 +5,7 @@ Welcome to PetCare, a full-featured pet daycare app offering an intuitive and se
 
 You can check out the live version of the app here:
 
-[petcare-cura.vercel.app)](https://petcare-cura.vercel.app)
+[petcare-cura.vercel.app](https://petcare-cura.vercel.app)
 
 ## Description:
 PetCare is designed to make managing pet daycare services simple and efficient. The app offers:
