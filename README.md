@@ -1,4 +1,5 @@
 <img src="https://github.com/ZeinMukhanov/petcare/blob/master/public/Demo.png">
+
 # PetCare
 Welcome to PetCare, a full-featured pet daycare app offering an intuitive and seamless user experience for both users and pet daycare owners. This app includes payment integration through Stripe, user authentication, and an user-friendly user dashboard for managing pet daycare services.
 
